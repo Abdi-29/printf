@@ -42,6 +42,7 @@ clean:
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR)/ fclean
 	rm -rf $(OBJ)
+	rm $(NAME)
 	@echo "$(GREEN)ALL CLEANED $(RESET) :)"
 
 re: fclean all
