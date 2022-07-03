@@ -3,6 +3,6 @@
 
 int	main(void)
 {
-	int len = ft_printf("hello %%\n");
+	int len = ft_printf("%");
 	printf("%i", len);
 }

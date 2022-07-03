@@ -14,7 +14,12 @@ void	ft_check_type(int type, va_list start, int *len)
 	};
 
 	i = 0;
-	(void)type;
+	if (type == '%')
+	{
+		ft_putchar_fd(type, 1);
+		(*len)++;
+		return ;
+	}
 	while (option[i].type)
 	{
 		if (option[i].type == type)
@@ -44,7 +49,8 @@ int	ft_printf(const char *format, ...)
 			ft_putchar_fd(*format, 1);
 			len++;
 		}
-		format++;
+		if (*format)
+			format++;
 	}
 	va_end(args);
 	return (len);
