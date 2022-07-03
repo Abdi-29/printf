@@ -1,27 +1,26 @@
 #include "ft_printf.h"
 #include "libft.h"
+#include <stdio.h>
 
-void	ft_check_type(char type, va_list start, int *len)
+void	ft_check_type(int type, va_list start, int *len)
 {
-	if (type == '%')
+	int				i;
+	const t_type	option[] = {
+	{'s', string_function}, {'c', char_function},
+	{'d', decimal_function}, {'i', decimal_function},
+	{'X', upper_hex_function}, {'x', lower_hex_function},
+	{'p', pointer_function}, {'u', unsigned_int_function},
+	{0, 0}
+	};
+
+	i = 0;
+	(void)type;
+	while (option[i].type)
 	{
-		ft_putchar_fd(type, 1);
-		*len += 1;
+		if (option[i].type == type)
+			return (option[i].function_pointer(start, len));
+		i++;
 	}
-	else if (type == 'c')
-		conversation_char(start, len);
-	else if (type == 's')
-		conversation_str(start, len);
-	else if (type == 'p')
-		conversation_pointer(start, len);
-	else if (type == 'd' || type == 'i')
-		conversation_integer(start, len);
-	else if (type == 'u')
-		conversation_unsigned(start, len);
-	else if (type == 'x')
-		conversation_hex(start, len);
-	else if (type == 'X')
-		conversation_hex_up(start, len);
 }
 
 int	ft_printf(const char *format, ...)

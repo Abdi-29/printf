@@ -52,7 +52,7 @@ char	*ft_itoa_base(size_t nbr)
 	return (tmp);
 }
 
-void	conversation_hex(va_list start, int *len)
+void	lower_hex_function(va_list start, int *len)
 {
 	unsigned int	i;
 	char			*hex;
@@ -63,6 +63,8 @@ void	conversation_hex(va_list start, int *len)
 	k = 0;
 	i = va_arg(start, unsigned int);
 	hex = ft_itoa_base(i);
+	if (!hex)
+		return ;
 	while (hex[k])
 	{
 		ft_putchar_fd(ft_tolower(hex[k]), 1);
@@ -73,7 +75,7 @@ void	conversation_hex(va_list start, int *len)
 	*len = j;
 }	
 
-void	conversation_hex_up(va_list start, int *len)
+void	upper_hex_function(va_list start, int *len)
 {
 	unsigned int	i;
 	char			*hex;
@@ -84,6 +86,8 @@ void	conversation_hex_up(va_list start, int *len)
 	k = 0;
 	i = va_arg(start, unsigned int);
 	hex = ft_itoa_base(i);
+	if (!hex)
+		return ;
 	while (hex[k])
 	{
 		ft_putchar_fd(ft_toupper(hex[k]), 1);
@@ -94,7 +98,7 @@ void	conversation_hex_up(va_list start, int *len)
 	*len = j;
 }
 
-void	conversation_pointer(va_list start, int *len)
+void	pointer_function(va_list start, int *len)
 {
 	char	*ptr;
 	size_t	i;
@@ -105,6 +109,8 @@ void	conversation_pointer(va_list start, int *len)
 	k = 0;
 	i = va_arg(start, size_t);
 	ptr = ft_itoa_base(i);
+	if (!ptr)
+		return ;
 	ft_putstr_fd("0x", 1);
 	while (ptr[k])
 	{

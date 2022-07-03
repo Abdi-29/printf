@@ -1,8 +1,12 @@
 NAME = libftprintf.a
 
-SRC = hexadecimal.c ft_printf.c dec_c_str.c ft_itoa_unsigned.c
-INCLUDE = -Ilibft
-OBJ_FILES = $(SRC:.c=.o)
+SRC = hexadecimal.c ft_printf.c dec_c_str.c ft_itoa_unsigned.c main.c
+INCLUDE = -I include
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+OBJ= $(SRC:.c=.o)
+CC = gcc
+OBJ_DIR = obj
 
 # COLORS
 PINK    = \x1b[35m
@@ -18,23 +22,26 @@ FLAGS = -Wextra -Werror -Wall
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
-	$(MAKE) -C libft
-	cp libft/libft.a $(NAME)
-	ar rc $(NAME) $(OBJ_FILES)
+$(NAME): $(OBJ) $(LIBFT)
+	gcc $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 	@echo "$(RED)Done $(GREEN)COM$(YELLOW)PI$(BLUE)LING $(PINK)LIBFT$(RESET) :)"
 
 
 %.o: %.c
-	$(CC) -c $(FLAGS) $(INCLUDE) -o $@ $<
+	@mkdir -p $(dir $@)
+	gcc $(FLAGS) $(INCLUDE) -c -o $@ $<
 	@echo "$(RED)COMPILING $(GREEN)PLEASE $(YELLOW)GI$(BLUE)VE $(PINK)IT A MOMENT$(RESET) :)"
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	rm  -f $(OBJ_FILES)
 	@echo "$(RED)CLEANING $(GREEN)IN $(YELLOW)PROCE$(BLUE)SS $(RESET) :)"
 
 fclean: clean
-	rm -f ${NAME}
+	$(MAKE) -C $(LIBFT_DIR)/ fclean
+	rm -rf $(OBJ)
 	@echo "$(GREEN)ALL CLEANED $(RESET) :)"
 
 re: fclean all

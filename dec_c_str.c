@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-void	conversation_char(va_list start, int *len)
+void	char_function(va_list start, int *len)
 {
 	char	c;
 
@@ -10,7 +10,7 @@ void	conversation_char(va_list start, int *len)
 	*len += 1;
 }
 
-void	conversation_str(va_list start, int *len)
+void	string_function(va_list start, int *len)
 {
 	char	*str;
 
@@ -29,25 +29,29 @@ void	conversation_str(va_list start, int *len)
 	}
 }
 
-void	conversation_integer(va_list start, int *len)
+void	decimal_function(va_list start, int *len)
 {
 	int		nbr;
 	char	*str;
 
 	nbr = va_arg(start, int);
 	str = ft_itoa(nbr);
+	if (!str)
+		return ;
 	ft_putstr_fd(str, 1);
 	*len += ft_strlen(str);
 	free(str);
 }
 
-void	conversation_unsigned(va_list start, int *len)
+void	unsigned_int_function(va_list start, int *len)
 {
 	unsigned int	nbr;
 	char			*str;
 
 	nbr = va_arg(start, unsigned int);
 	str = ft_itoa_unsigned(nbr);
+	if (!str)
+		return ;
 	ft_putstr_fd(str, 1);
 	*len += ft_strlen(str);
 	free(str);
